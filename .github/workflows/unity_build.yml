@@ -4,56 +4,44 @@ name: Unity Build
 
 # This workflow runs when changes are pushed or merged into your specific branch
 on:
-# ... rest of the file ...
   push:
     branches:
-      - PC-branch-number-2 
+      - PC-branch-number-2
   pull_request:
     branches:
       - PC-branch-number-2
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
-# .github/workflows/unity_build.yml
-
-name: Unity Build
-
-# ... on: section ...
-
+# REQUIRED to allow checkout and Git LFS setup
 permissions:
-  contents: read # THIS NEW LINE FIXES THE "REPOSITORY NOT FOUND" ERROR
-
-jobs:
-  build:
-# ... rest of the file ...
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      # Step 1: Check out the repository code
+      # Step 1: Check out the repository code and Git LFS
       - uses: actions/checkout@v4
         with:
-          lfs: true # Essential for Unity projects using Git LFS
+          lfs: true
 
-      # Step 2: Set up Git LFS 
-      - uses: actions/setup-git-lfs@v3
-
-      # Step 3: Run the Unity Build Action
-      - uses: game-ci/unity-builder@v4
-        id: build
-        env:
-          # IMPORTANT: This must be set up as a secret in your GitHub repo settings!
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      # Step 2: Set up Unity environment and cache assets
+      - uses: game-ci/unity-setup@v4
         with:
-          # Your specific Unity version
-          unityVersion: 6000.1.8f1 
-          
-          # Target platform: Build for Windows 64-bit standalone
-          targetPlatform: StandaloneWindows64 
+          unity-version: 6000.1.8f1
 
-      # Step 4: Upload the build artifact (the compiled game)
+      # Step 3: Run the build for Windows
+      - uses: game-ci/unity-build@v4
+        with:
+          targetPlatform: StandaloneWindows64
+          # Replace $ with a unique build folder name
+          buildName: MathFunAdventure
+          # Use the secret license key
+          unityLicense: ${{ secrets.UNITY_LICENSE }}
+          
+      # Step 4: Upload the build artifact
       - uses: actions/upload-artifact@v4
         with:
           name: Build-Windows
-          path: ${{ steps.build.outputs.buildPath }} # Path where the action placed the build
+          path: build/StandaloneWindows64
