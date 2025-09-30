@@ -1,0 +1,45 @@
+# .github/workflows/unity_build.yml
+
+name: Unity Build
+
+# This workflow runs when changes are pushed or merged into your specific branch
+on:
+  push:
+    branches:
+      - PC-branch-number-2 
+  pull_request:
+    branches:
+      - PC-branch-number-2
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the repository code
+      - uses: actions/checkout@v4
+        with:
+          lfs: true # Essential for Unity projects using Git LFS
+
+      # Step 2: Set up Git LFS 
+      - uses: actions/setup-git-lfs@v3
+
+      # Step 3: Run the Unity Build Action
+      - uses: game-ci/unity-builder@v4
+        id: build
+        env:
+          # IMPORTANT: This must be set up as a secret in your GitHub repo settings!
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          # Your specific Unity version
+          unityVersion: 6000.1.8f1 
+          
+          # Target platform: Build for Windows 64-bit standalone
+          targetPlatform: StandaloneWindows64 
+
+      # Step 4: Upload the build artifact (the compiled game)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build-Windows
+          path: ${{ steps.build.outputs.buildPath }} # Path where the action placed the build
