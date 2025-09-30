@@ -13,6 +13,19 @@ on:
       - PC-branch-number-2
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
+# .github/workflows/unity_build.yml
+
+name: Unity Build
+
+# ... on: section ...
+
+permissions:
+  contents: read # THIS NEW LINE FIXES THE "REPOSITORY NOT FOUND" ERROR
+
+jobs:
+  build:
+# ... rest of the file ...
+
 jobs:
   build:
     runs-on: ubuntu-latest
