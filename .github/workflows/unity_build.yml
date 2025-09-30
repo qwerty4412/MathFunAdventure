@@ -12,7 +12,7 @@ on:
       - PC-branch-number-2
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
-# REQUIRED to allow checkout and Git LFS setup
+# REQUIRED for the runner to access repository files and Git LFS
 permissions:
   contents: read
 
@@ -27,15 +27,16 @@ jobs:
           lfs: true
 
       # Step 2: Set up Unity environment and cache assets
-      - uses: game-ci/unity-setup@v4
+      # *** ACTION PINNED TO COMMIT SHA ***
+      - uses: game-ci/unity-setup@dd42746c24393663b15f5c3527b1029c50e495be
         with:
           unity-version: 6000.1.8f1
 
       # Step 3: Run the build for Windows
-      - uses: game-ci/unity-build@v4
+      # *** ACTION PINNED TO COMMIT SHA ***
+      - uses: game-ci/unity-build@0c16aab1d71329c29809968a356396e00b652875
         with:
           targetPlatform: StandaloneWindows64
-          # Replace $ with a unique build folder name
           buildName: MathFunAdventure
           # Use the secret license key
           unityLicense: ${{ secrets.UNITY_LICENSE }}
