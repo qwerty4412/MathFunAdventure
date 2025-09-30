@@ -16,32 +16,60 @@ on:
 permissions:
   contents: read
 
+# .github/workflows/unity_build.yml
+
+name: Unity Build
+
+# This workflow runs when changes are pushed or merged into your specific branch
+on:
+  push:
+    branches:
+      - PC-branch-number-2
+  pull_request:
+    branches:
+      - PC-branch-number-2
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    # Define the Unity Docker image to use for all subsequent steps in this job
+    # *** CORRECTED IMAGE TAG IS HERE ***
+    container:
+      image: unityci/editor:6000.1.8f1-base-4 
+    
     steps:
       # Step 1: Check out the repository code and Git LFS
       - uses: actions/checkout@v4
         with:
           lfs: true
 
-      # Step 2: Set up Unity environment and cache assets
-      # *** ACTION PINNED TO COMMIT SHA ***
-      - uses: game-ci/unity-setup@dd42746c24393663b15f5c3527b1029c50e495be
+      # Step 2: Cache Unity Library
+      - name: Cache Unity Library
+        uses: actions/cache@v4
         with:
-          unity-version: 6000.1.8f1
+          path: Library
+          key: Library-6000.1.8f1-${{ runner.os }}
+          restore-keys: |
+            Library-6000.1.8f1-
 
-      # Step 3: Run the build for Windows
-      # *** ACTION PINNED TO COMMIT SHA ***
-      - uses: game-ci/unity-build@0c16aab1d71329c29809968a356396e00b652875
-        with:
-          targetPlatform: StandaloneWindows64
-          buildName: MathFunAdventure
-          # Use the secret license key
-          unityLicense: ${{ secrets.UNITY_LICENSE }}
-          
-      # Step 4: Upload the build artifact
+      # Step 3: Run the Build using the Docker entrypoint command (Bypassing the game-ci action)
+      - name: Build Project for Windows
+        # We run this inside the container defined above using the entrypoint script
+        run: |
+          /usr/bin/dumb-init /bin/bash -c "/usr/local/bin/unity-builder \
+            -buildTarget StandaloneWindows64 \
+            -customBuildPath build/StandaloneWindows64/MathFunAdventure.exe \
+            -unityLicensingServer ${{ secrets.UNITY_LICENSE }}"
+        env:
+          # Pass the license secret as an environment variable
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      
+      # Step 4: Upload the build artifact (Still using the official GitHub action)
       - uses: actions/upload-artifact@v4
         with:
           name: Build-Windows
