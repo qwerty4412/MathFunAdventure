@@ -38,13 +38,18 @@ jobs:
           restore-keys: |
             Library-6000.2.5f1-
 
-      # Step 3: Run the Build using the Docker entrypoint script (ADDED 'shell: bash')
+      # Step 3: Run the Build using the DIRECT UNITY CLI ARGUMENTS
       - name: Build Project for Windows
-        shell: bash  # <-- THIS IS THE CRITICAL NEW FIX
+        shell: bash
         run: |
-          /usr/local/bin/unity-builder \
+          /opt/unity/Editor/Unity \
+            -quit \
+            -batchmode \
+            -nographics \
+            -projectPath "$(pwd)" \
             -buildTarget StandaloneWindows64 \
             -customBuildPath build/StandaloneWindows64/MathFunAdventure.exe \
+            -executeMethod UnityEditor.BuildPlayerWindow.BuildPlayerAndRun \
             -logFile -
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
