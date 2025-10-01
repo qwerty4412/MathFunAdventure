@@ -4,14 +4,13 @@ name: Unity Build
 
 # This workflow runs when changes are pushed or merged into your specific branch
 on:
-  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
   push:
     branches:
       - PC-branch-number-2
   pull_request:
     branches:
       - PC-branch-number-2
-  
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
 permissions:
   contents: read
@@ -20,23 +19,40 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # Define the Unity Docker image to use for all subsequent steps in this job
-    # This is the final attempt to bypass the network block
+    # Define the Unity Docker image to use (The working tag you found)
     container:
-      image: unityci/editor:6000.2.5f1-base-3.1
+      image: unityci/editor:6000.2.5f1-base-3.1 
     
     steps:
-      # Step 1: Check out the repository code and Git LFS (Must run on the host)
+      # Step 1: Check out the repository code and Git LFS
       - uses: actions/checkout@v4
         with:
           lfs: true
 
-      # Step 2: Cache Unity Library (Still using the official GitHub action)
+      # Step 2: Cache Unity Library
       - name: Cache Unity Library
         uses: actions/cache@v4
         with:
           path: Library
-          key: Library-6000.1.8f1-${{ runner.os }}
+          # *** UPDATED KEY TO MATCH NEW DOCKER TAG ***
+          key: Library-6000.2.5f1-${{ runner.os }}
           restore-keys: |
-            Library-6000.1.8f1-
+            Library-6000.2.5f1-
 
+      # Step 3: Run the Build using the Docker entrypoint script
+      - name: Build Project for Windows
+        run: |
+          # Use the unity-builder script provided in the container
+          /usr/bin/dumb-init /bin/bash -c "/usr/local/bin/unity-builder \
+            -buildTarget StandaloneWindows64 \
+            -customBuildPath build/StandaloneWindows64/MathFunAdventure.exe \
+            -logFile -"
+        env:
+          # Pass the license secret as an environment variable (Required by the unity-builder script)
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          
+      # Step 4: Upload the build artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build-Windows
+          path: build/StandaloneWindows64
