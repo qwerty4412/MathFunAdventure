@@ -23,7 +23,7 @@ jobs:
     # Define the Unity Docker image to use for all subsequent steps in this job
     # This is the final attempt to bypass the network block
     container:
-      image: unityci/editor:6000.1.8f1-base-4 
+      image: unityci/editor:6000.2.5f1-base-3.1
     
     steps:
       # Step 1: Check out the repository code and Git LFS (Must run on the host)
