@@ -20,7 +20,7 @@ public class PlayModetestscript
     {
         SceneManager.LoadScene("Level1");
 
-        var playerObject = GameObject.FindGameObjectsWithTag("Player");
+        var playerObject = GameObject.FindGameObjectWithTag("Player");
         Assert.IsNotNull(playerObject);
         yield return null;
     }

@@ -13,7 +13,7 @@ public class CharacterMovementTests
 
         // Create a test GameObject and attach the CharacterController component
         var playerObject = GameObject.FindGameObjectWithTag("Player");
-        CharacterController controller = playerObject.AddComponent<CharacterController>();
+        CharacterController controller = playerObject.GetComponent<CharacterController>();
         // Assume you have a script for movement logic attached as well, e.g., PlayerMovement
         // PlayerMovement movementScript = playerObject.AddComponent<PlayerMovement>();
         
