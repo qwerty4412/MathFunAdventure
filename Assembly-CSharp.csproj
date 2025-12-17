@@ -49,18 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\KidsCharacterFree\Scripts\KidsScript.cs" />
-    <Compile Include="Assets\Scripts\input.cs" />
-    <Compile Include="Assets\Scripts\Movement2.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\Main menu.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\DenysAlmaral\CityPeople-FREE\Scripts\CityPeople.cs" />
     <Compile Include="Assets\DenysAlmaral\CityPeople-FREE\Demo_Scenes\Scripts\DemoCamera.cs" />
-    <Compile Include="Assets\Scripts\Falldetect.cs" />
     <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\MouseLook.cs" />
     <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\Move.cs" />
-    <Compile Include="Assets\Scripts\Playerinputs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1263,6 +1256,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Scripts.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
