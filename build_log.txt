@@ -1,15 +1,15 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera" at "2025-12-18T05:10:01.3319607Z"
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera" at "2025-12-18T05:35:30.9140425Z"
 [Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 21412, path: "D:/thesis/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.3+a4e98f1
-  Session Id:              d28ec47d45254833956c5b9afa856642
+  Session Id:              d244ee2279184b5cb2a23e673889161b
   Correlation Id:          6a720aa3387ae0174fbed7de947e2b72
-  External correlation Id: 6338113245537871412
+  External correlation Id: 820101045748461865
   Machine Id:              ujkaGCjUBlP7a+K6IJoqioJwjzM=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Oliver D. Dacera" (connect: 0.00s, validation: 0.01s, handshake: 0.03s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera-notifications" at "2025-12-18T05:10:01.3776945Z"
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Oliver D. Dacera" (connect: 0.00s, validation: 0.01s, handshake: 0.25s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera-notifications" at "2025-12-18T05:35:31.1848078Z"
 [Licensing::Module] Error: Access token is unavailable; failed to update
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] Serial number assigned to: "18968319405843-UnityPersXXXX"
@@ -18,18 +18,21 @@ Built from '6000.1/staging' branch; Version is '6000.1.8f1 (2a5b1522e5ab) revisi
 OS: 'Windows 11  (10.0.26200) 64bit CoreSingleLanguage' Language: 'en' Physical Memory: 16105 MB
 [Licensing::Client] Successfully resolved entitlement details
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
-Date: 2025-12-18T05:10:01Z
+Date: 2025-12-18T05:35:31Z
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe
 -batchmode
 -quit
+-nographics
 -projectPath
 .
 -buildWindows64Player
 build/StandaloneWindows64/MathFunAdventure.exe
 -logFile
 build_log.txt
+-accept-apiupdate
+-no-sandbox
 Successfully changed project path to: C:/actions-runner/actions-runner-win-x64-2.330.0/_work/MathFunAdventure/MathFunAdventure
 C:/actions-runner/actions-runner-win-x64-2.330.0/_work/MathFunAdventure/MathFunAdventure
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -67,15 +70,15 @@ C:/actions-runner/actions-runner-win-x64-2.330.0/_work/MathFunAdventure/MathFunA
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [22560]  Target information:
+Player connection [15580]  Target information:
 
-Player connection [22560]  * "[IP] 192.168.1.12 [Port] 55504 [Flags] 2 [Guid] 3514171690 [EditorId] 3514171690 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-9V47MAFS) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [15580]  * "[IP] 192.168.1.12 [Port] 55504 [Flags] 2 [Guid] 903884234 [EditorId] 903884234 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-9V47MAFS) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [22560] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [22560] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [15580] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [15580] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
 [Physics::Module] Id: 0xdecafbad
-[Package Manager] Connected to IPC stream "Upm-24544" after 0.3 seconds.
+[Package Manager] Connected to IPC stream "Upm-12252" after 1.2 seconds.
 Library Redirect Path: Library/
 Rebuilding Library because the asset database could not be found!
