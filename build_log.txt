@@ -1,24 +1,24 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera" at "2025-12-18T05:35:30.9140425Z"
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera" at "2025-12-18T06:05:38.3198635Z"
 [Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 21412, path: "D:/thesis/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.3+a4e98f1
-  Session Id:              d244ee2279184b5cb2a23e673889161b
+  Session Id:              bb686ccbca8d4bb796e50f53f8d9af1f
   Correlation Id:          6a720aa3387ae0174fbed7de947e2b72
-  External correlation Id: 820101045748461865
+  External correlation Id: 4357714682334588971
   Machine Id:              ujkaGCjUBlP7a+K6IJoqioJwjzM=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Oliver D. Dacera" (connect: 0.00s, validation: 0.01s, handshake: 0.25s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera-notifications" at "2025-12-18T05:35:31.1848078Z"
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Oliver D. Dacera" (connect: 0.00s, validation: 0.01s, handshake: 0.22s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Oliver D. Dacera-notifications" at "2025-12-18T06:05:38.555142Z"
 [Licensing::Module] Error: Access token is unavailable; failed to update
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] Serial number assigned to: "18968319405843-UnityPersXXXX"
-[Licensing::Client] Successfully updated license, isAync: True, time: 0.01
+[Licensing::Client] Successfully updated license, isAync: True, time: 0.02
 Built from '6000.1/staging' branch; Version is '6000.1.8f1 (2a5b1522e5ab) revision 2775829'; Using compiler version '194234433'; Build Type 'Release'
 OS: 'Windows 11  (10.0.26200) 64bit CoreSingleLanguage' Language: 'en' Physical Memory: 16105 MB
 [Licensing::Client] Successfully resolved entitlement details
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
-Date: 2025-12-18T05:35:31Z
+Date: 2025-12-18T06:05:38Z
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe
@@ -70,15 +70,15 @@ C:/actions-runner/actions-runner-win-x64-2.330.0/_work/MathFunAdventure/MathFunA
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [15580]  Target information:
+Player connection [22572]  Target information:
 
-Player connection [15580]  * "[IP] 192.168.1.12 [Port] 55504 [Flags] 2 [Guid] 903884234 [EditorId] 903884234 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-9V47MAFS) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [22572]  * "[IP] 192.168.1.12 [Port] 55504 [Flags] 2 [Guid] 3211708787 [EditorId] 3211708787 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-9V47MAFS) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [15580] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [15580] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [22572] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [22572] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
 [Physics::Module] Id: 0xdecafbad
-[Package Manager] Connected to IPC stream "Upm-12252" after 1.2 seconds.
+[Package Manager] Connected to IPC stream "Upm-25196" after 1.2 seconds.
 Library Redirect Path: Library/
 Rebuilding Library because the asset database could not be found!

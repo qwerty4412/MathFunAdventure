@@ -3,7 +3,7 @@ name: Unity Build (Windows 64-bit)
 on:
   push:
     branches:
-      - PC-branch-number-2  # <--- Matches your branch name exactly
+      - PC-branch-number-2
   workflow_dispatch:
 
 jobs:
@@ -27,16 +27,25 @@ jobs:
         run: |
           $unityPath = "C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe"
           
+          # Check if Library exists to prevent the "Asset Database" crash
+          if (!(Test-Path "Library")) {
+            Write-Host "Warning: Library folder not found. Unity might crash rebuilding it."
+          }
+
           Write-Host "Starting Unity Build on PC-branch-number-2..."
           
-          # batchmode: No UI
-          # nographics: No GPU requirement
-          # accept-apiupdate: Bypass script update popups
-          & $unityPath -batchmode -quit -nographics -projectPath . -buildWindows64Player "build/StandaloneWindows64/MathFunAdventure.exe" -logFile build_log.txt -accept-apiupdate -no-sandbox
+          # EXECUTION:
+          # -batchmode: Runs without UI
+          # -nographics: Essential for runners without a physical monitor active
+          # -force-free: Ensures it uses your Personal license correctly
+          # -accept-apiupdate: Bypasses the "update scripts" popup
+          & $unityPath -batchmode -quit -nographics -projectPath . -buildWindows64Player "build/StandaloneWindows64/MathFunAdventure.exe" -logFile build_log.txt -accept-apiupdate -force-free
 
+          # Error Handling
           if ($LASTEXITCODE -ne 0) {
             Write-Host "----------------- BUILD FAILED -----------------"
-            if (Test-Path build_log.txt) { Get-Content build_log.txt -Tail 50 }
+            Write-Host "Printing the last 100 lines of build_log.txt for debugging:"
+            if (Test-Path build_log.txt) { Get-Content build_log.txt -Tail 100 }
             exit 1
           }
           Write-Host "Build Successful!"
