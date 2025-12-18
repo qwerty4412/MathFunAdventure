@@ -28,4 +28,11 @@ public class Calculatoreditmodetestscript
         // Use yield to skip a frame.
         yield return null;
     }
+
+    [Test]
+    public void TestDivideByZero()
+    {
+        EditorCalculator calculator = new EditorCalculator();
+        Assert.Throws<System.DivideByZeroException>(() => calculator.Div(5, 0));
+    }
 }

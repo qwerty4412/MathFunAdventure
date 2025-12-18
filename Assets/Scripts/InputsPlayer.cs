@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
-public class input : MonoBehaviour
+public class InputsPlayer : MonoBehaviour
 {
     private CharacterController controller;
     [SerializeField] private float _movementSpeed = 5f;

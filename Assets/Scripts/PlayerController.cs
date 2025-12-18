@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
@@ -10,6 +10,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 velocity;
+
+    public void SetMoveInputForTesting(Vector2 input)
+    {
+        moveInput = input;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

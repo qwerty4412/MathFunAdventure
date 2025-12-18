@@ -11,6 +11,11 @@ public class Move : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +25,7 @@ public class Move : MonoBehaviour
         {
             flip();
         }
-        else if (mainl > 0 && facingRight)
+        else if (mainl > 0 && !facingRight)
         {
             flip();
         }
@@ -35,9 +40,9 @@ public class Move : MonoBehaviour
 
     void flip()
     {
-        if(!facingRight)
-        transform.localRotation = Quaternion.Euler(0,90,0);
-        else transform.localRotation = Quaternion.Euler(0,-90,0);
         facingRight = !facingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 }

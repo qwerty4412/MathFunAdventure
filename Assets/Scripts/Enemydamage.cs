@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Enemydamage : MonoBehaviour
@@ -19,7 +18,7 @@ public class Enemydamage : MonoBehaviour
     {
         if (damage.tag == "Player")
         { 
-            input player = damage.GetComponent<input>();
+            InputsPlayer player = damage.GetComponent<InputsPlayer>();
 
             if (player != null)
             {

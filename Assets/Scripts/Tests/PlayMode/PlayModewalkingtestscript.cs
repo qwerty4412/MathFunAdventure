@@ -10,7 +10,7 @@ using NUnit.Framework.Internal;
 public class PlayModewalkingtestscript
 {
     private GameObject testObject;
-    private input controller;
+    private PlayerController controller;
     // A Test behaves as an ordinary method
     [Test]
     public void PlayModewalkingtestscriptSimplePasses()
@@ -24,7 +24,8 @@ public class PlayModewalkingtestscript
     public void Setup()
     {
         testObject = GameObject.Instantiate(new GameObject());
-        controller = testObject.AddComponent<input>();
+        testObject.AddComponent<CharacterController>();
+        controller = testObject.AddComponent<PlayerController>();
     }
 
     [UnityTest]
@@ -32,7 +33,7 @@ public class PlayModewalkingtestscript
     {
         yield return new WaitForSeconds(0.1f);
 
-        Assert.IsNotNull(controller.GetComponent<CharacterController>(), "input has controller attached");
+        Assert.IsNotNull(controller.GetComponent<CharacterController>(), "PlayerController has controller attached");
     }
 
     
@@ -40,7 +41,7 @@ public class PlayModewalkingtestscript
     public IEnumerator Movementtest()
     {
         Vector3 position =  controller.transform.position;
-
+        controller.SetMoveInputForTesting(new Vector2(1, 0));
         yield return new WaitForSeconds(0.1f);
         Vector3 newPosition = controller.transform.position;
         Assert.AreNotEqual(newPosition, position, "Movetest passed moved object" + position + "to" + newPosition);

@@ -8,7 +8,7 @@ public class Falldetect : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            input player = other.GetComponent<input>();
+            InputsPlayer player = other.GetComponent<InputsPlayer>();
 
             if (player != null)
             {

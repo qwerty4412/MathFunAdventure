@@ -8,6 +8,7 @@
         "GUID:09dcc9c0126b6b34ab2a877b8f2277f5"
     ],
     "includePlatforms": [
+        "Editor",
         "WindowsStandalone64"
     ],
     "excludePlatforms": [],

@@ -12,6 +12,7 @@ public class EnemyAI2 : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        enemy = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame this is for pathfinding for enemies
