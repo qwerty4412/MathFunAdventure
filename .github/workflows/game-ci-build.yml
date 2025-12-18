@@ -1,4 +1,4 @@
-name: Unity Master Pipeline
+name: Unity Master Pipeline (Self-Hosted)
 
 on:
   push:
@@ -9,33 +9,35 @@ on:
 jobs:
   build:
     name: Build for Windows
-    runs-on: ubuntu-latest
+    # This ensures it ONLY runs on your laptop
+    runs-on: self-hosted 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      - name: Cache Library
-        uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-build-StandaloneWindows64-${{ github.ref }}
-
-      - name: Build Project
-        uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: StandaloneWindows64
-          buildsPath: build # This creates a 'build' folder in the root
+      - name: Run Build Command
+        shell: powershell
+        run: |
+          # Create build directory if it doesn't exist
+          New-Item -ItemType Directory -Force -Path "build/StandaloneWindows64"
+          
+          $unityPath = "C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe"
+          
+          Write-Host "Starting Unity Build on Local Machine..."
+          
+          # This runs your local Unity.exe directly
+          & $unityPath -batchmode -quit -projectPath . -buildWindows64Player "build/StandaloneWindows64/MathFunAdventure.exe" -logFile build_log.txt
+          
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Unity Build Failed! Check build_log.txt for details."
+            exit 1
+          }
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MathFunAdventure-PC-Build
-          # This captures the entire build folder and everything inside it
-          path: build/ 
+          path: build/
           if-no-files-found: error
