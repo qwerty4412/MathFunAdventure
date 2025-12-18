@@ -1,44 +1,48 @@
-name: Unity Master Pipeline (Self-Hosted)
+name: Unity Build (Windows 64-bit)
 
 on:
   push:
     branches:
-      - PC-branch-number-2
-      - main
+      - PC-branch-number-2  # <--- Matches your branch name exactly
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build for Windows
-    # This ensures it ONLY runs on your laptop
-    runs-on: self-hosted 
+    name: Build MathFunAdventure
+    runs-on: self-hosted
+
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           lfs: true
-          clean: false
 
-      - name: Run Build Command
+      - name: Create Build Directory
+        run: |
+          if (Test-Path "build") { Remove-Item -Path "build" -Recurse -Force }
+          New-Item -ItemType Directory -Force -Path "build/StandaloneWindows64"
+
+      - name: Build Unity Project
         shell: powershell
         run: |
-          # Create build directory if it doesn't exist
-          New-Item -ItemType Directory -Force -Path "build/StandaloneWindows64"
-          
           $unityPath = "C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe"
           
-          Write-Host "Starting Unity Build on Local Machine..."
+          Write-Host "Starting Unity Build on PC-branch-number-2..."
           
-          # This runs your local Unity.exe directly
-          & $unityPath -batchmode -quit -projectPath . -buildWindows64Player "build/StandaloneWindows64/MathFunAdventure.exe" -logFile build_log.txt
-          
+          # batchmode: No UI
+          # nographics: No GPU requirement
+          # accept-apiupdate: Bypass script update popups
+          & $unityPath -batchmode -quit -nographics -projectPath . -buildWindows64Player "build/StandaloneWindows64/MathFunAdventure.exe" -logFile build_log.txt -accept-apiupdate -no-sandbox
+
           if ($LASTEXITCODE -ne 0) {
-            Write-Error "Unity Build Failed! Check build_log.txt for details."
+            Write-Host "----------------- BUILD FAILED -----------------"
+            if (Test-Path build_log.txt) { Get-Content build_log.txt -Tail 50 }
             exit 1
           }
+          Write-Host "Build Successful!"
 
-      - name: Upload Artifact
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MathFunAdventure-PC-Build
-          path: build/
-          if-no-files-found: error
+          path: build/StandaloneWindows64/
