@@ -1,0 +1,25 @@
+name: Unity CI (Self-Hosted)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  unity-tests:
+    runs-on: self-hosted
+
+    steps:
+      - name: Get project files
+        uses: actions/checkout@v4
+
+      - name: Run Unity tests
+        shell: powershell
+        run: |
+          & "C:\Program Files\Unity\Hub\Editor\6000.1.8f1\Editor\Unity.exe" `
+            -batchmode `
+            -nographics `
+            -projectPath Mathfunadventure `
+            -runTests `
+            -testPlatform EditMode `
+            -logFile -

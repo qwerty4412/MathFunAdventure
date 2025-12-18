@@ -1,0 +1,61 @@
+# .github/workflows/unity_build.yml
+
+name: Unity Build
+
+# This workflow runs when changes are pushed or merged into your specific branch
+on:
+  push:
+    branches:
+      - PC-branch-number-2
+  pull_request:
+    branches:
+      - PC-branch-number-2
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # The working Unity Docker image tag
+    container:
+      image: unityci/editor:6000.2.5f1-base-3.1 
+    
+    steps:
+      # Step 1: Check out the repository code and Git LFS
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Step 2: Cache Unity Library
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-6000.2.5f1-${{ runner.os }}
+          restore-keys: |
+            Library-6000.2.5f1-
+
+      # Step 3: Run the Build using the DIRECT UNITY CLI ARGUMENTS
+      - name: Build Project for Windows
+        shell: bash
+        run: |
+          /opt/unity/Editor/Unity \
+            -quit \
+            -batchmode \
+            -nographics \
+            -projectPath "$(pwd)" \
+            -buildTarget StandaloneWindows64 \
+            -customBuildPath build/StandaloneWindows64/MathFunAdventure.exe \
+            -executeMethod UnityEditor.BuildPlayerWindow.BuildPlayerAndRun \
+            -logFile -
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      
+      # Step 4: Upload the build artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build-Windows
+          path: build/StandaloneWindows64
